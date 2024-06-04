@@ -1,0 +1,80 @@
+.list-discussion{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    overflow-y: scroll;
+    height: 80%;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    padding: 4em;
+    gap: 1em;
+  }
+  
+  .message {
+    display: flex;
+    flex-direction: column;
+    gap:0.5em;
+    width: 100%;
+  }
+ 
+  .self-start {
+    align-items: flex-start;
+  }
+  
+  .self-end {
+    align-items: flex-end;
+  }
+  
+  .message-user {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  .image-user {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .message-content {
+    background-color: #f1f1f1;
+    padding: 1em;
+    border-radius: 1em;
+  }
+  .message-timestamp {
+    font-size: 0.8em;
+    color: #666;
+  }
+  
+
+
+  @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e0cbcb;
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
+}
