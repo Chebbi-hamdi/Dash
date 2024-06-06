@@ -17,63 +17,6 @@ const Admins = () => {
     console.log(e);
     setRole(e);
   };
-  // const addAdminMutation = useMutation({
-  //   mutationFn: async () => {
-  //     try {
-  //       console.log(role);
-
-  //       await createAdmin({ username, email, password, role });
-  //     } catch (error) {
-  //       console.error(error);
-  //       throw error; // re-throw the error so react-query can catch it
-  //     }
-  //   },
-  //   onSuccess: () => {
-  //     setIsOpen(false);
-
-  //     queryClient.invalidateQueries({
-  //       queryKey: ['admins'],
-  //     });
-
-  //     setName('');
-  //     setEmail('');
-  //     setPassword('');
-  //     setRole('');
-  //   },
-  //   onError: (error) => {
-  //     console.log(error.message);
-  //   },
-  // });
-  // const adminRouter = crudRouter('admin');
-  // const addAdminMutation = useMutation({
-  //   mutationFn: async () => {
-  //     try {
-  //       console.log(role);
-
-  //       await adminRouter.create({ username, email, password, role });
-  //     } catch (error) {
-  //       console.error(error);
-  //       throw error; // re-throw the error so react-query can catch it
-  //     }
-
-
-  // }, onSuccess: () => {
-  //   setIsOpen(false);
- 
-  //     queryClient.invalidateQueries({
-  //       queryKey: ['admins'],
-  //     });
-
-  //     setName('');
-  //     setEmail('');
-  //     setPassword('');
-  //     setRole('');
-  //   },
-  //   onError: (error) => {
-  //     console.log(error.message);
-  //   },
-  // });
-  /********************* */
 
   const addAdminMutation = useCreate('admin', 'admins');
   const handleAddAdmin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,11 +28,6 @@ const Admins = () => {
     setPassword('');
     setRole('');
   };
-  // const handleAddAdmin = (e: React.FormEvent<HTMLFormElement>) => {
-  //   setIsOpen(true);
-  //   e.preventDefault();
-  //   addAdminMutation.mutate(e);
-  // };
 
 
 

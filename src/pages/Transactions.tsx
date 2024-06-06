@@ -1,7 +1,8 @@
 import React from 'react'
-import TableTwo from '../components/Tables/TableTwo';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+
+import TableTransaction from '../components/Tables/TableTransaction';
 
 const Transactions = () => {
     return (
@@ -9,7 +10,7 @@ const Transactions = () => {
           <Breadcrumb pageName="Transactions" />
     
           <div className="flex flex-col gap-10">
-            <TableTwo />
+            <TableTransaction />
           </div>
         </DefaultLayout>
       );

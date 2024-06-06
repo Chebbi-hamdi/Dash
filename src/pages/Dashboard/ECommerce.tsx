@@ -1,15 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import ChartOne from '../../components/Charts/ChartOne';
 import ChartThree from '../../components/Charts/ChartThree';
-import ChartTwo from '../../components/Charts/ChartTwo';
-import ChatCard from '../../components/Chat/ChatCard';
-import MapOne from '../../components/Maps/MapOne';
-import TableOne from '../../components/Tables/TableOne';
+
 import DefaultLayout from '../../layout/DefaultLayout';
+import { useGetAllUsers } from '../../hooks/customHooks';
+import { useGetAllTasks } from '../../hooks/customHooksTasks';
 
 const ECommerce: React.FC = () => {
+
+  const {data: userData, isLoading: isUsersLoading} = useGetAllUsers("users","users");
+  const {data: taskData, isLoading: isTasksLoading} = useGetAllTasks("tasks",100,100,"tasks")
+
+
+  if ( isTasksLoading || isUsersLoading) {
+    return <div>Loading...</div>;
+  }
+
+
   return (
+    <div>
+    {isTasksLoading || isUsersLoading ? (
+      <div className="flex items-center justify-center h-96">
+        <svg
+          className="w-10 h-10 text-primary animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.373A8 8 0 0012 20v-4H6z"
+          ></path>
+        </svg>
+      </div>
+    ) : (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats title="Total views" total="$33.456K" rate="0.43%" levelUp>
@@ -54,7 +88,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Tasks" total={taskData.totalTasks} rate="2.59%" levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -73,7 +107,7 @@ const ECommerce: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        <CardDataStats title="Total Users" total={userData.formedUsers.length} rate="0.95%" levelDown>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -98,17 +132,15 @@ const ECommerce: React.FC = () => {
         </CardDataStats>
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+      <div className="mt-4 grid grid-cols-4  gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne />
-        <ChartTwo />
         <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
-        </div>
-        <ChatCard />
+     
       </div>
     </DefaultLayout>
+    )}
+    </div>
+    
   );
 };
 

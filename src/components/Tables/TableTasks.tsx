@@ -52,37 +52,11 @@ console.log('----------------currentPage------------',currentPage);
     return <div>Loading...</div>;
   }
 
-  // useEffect(() => {
-  //     const userIds = taskData.map((task: { owner: string }) => task.owner);
-  //     setSelectedUserId(userIds);
-  //     console.log("###########################",userIds);
-  //   }, [taskData]);
-
-  //   useEffect(() => {
-  //     const fetchUsers = async () => {
-  //       console.log('selectedUserId:', selectedUserId);
-  //       const userIds = selectedUserId.split(', ');
-  //       console.log('userIds:', userIds);
-  //       try {
-  //         const users = await Promise.all(userIds.map(id => useGetById('users', id, 'users')));
-  //         console.log('users:', users);
-  //       } catch (error) {
-  //         console.error('Error fetching users:', error);
-  //       }
-  //     };
-
-  //     fetchUsers();
-  //   }, [selectedUserId]);
 
     const handleDelete = (id: string) => {
       deleteAdmin.mutate(id);
     };
 
-  // const handleInfo = (id: string) => {
-  //   setIsOpen(true);
-  //   setSelectedAdminId(id);
-  //   console.log(id);
-  // };
 
   const handleInfo = (id: string) => {
     setIsOpenInfoModal(true);
@@ -104,13 +78,6 @@ console.log('----------------currentPage------------',currentPage);
     assignTask.mutate({ taskId: selectedtaskId, userId: data.user });
   };
 
-  // const handleInfo = (id: string) => {
-  //   setIsOpenInfoModal(true);
-  //   setSelectedAdminId(id);
-  //   setInfoData(newData);
-  //   console.log(id), console.log(newData);
-
-  // };
 
   const handlePrevious = () => {
     setCurrentPage((prev) => prev - 1);
