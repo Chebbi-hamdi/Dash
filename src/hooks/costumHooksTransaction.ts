@@ -1,12 +1,13 @@
 import { useQuery , useMutation ,useQueryClient } from "@tanstack/react-query";
 import { getAll, getTransaction, updateTransaction } from "../api/routes/transactionsRoute";
 
-export const useGetAll = (route: string, path: string) => {
+export const useGetAll = (route: string,currentPage: number, itemsPerPage:number , path: string) => {
     return useQuery({
-        queryKey: [path],
-        queryFn: () => getAll(route)
+        queryKey: [path,currentPage,itemsPerPage],
+        queryFn: () => getAll(route,currentPage, itemsPerPage)
     });
 }
+
 
 export const useGetTransaction = (route: string, id: string, path: string) => {
     return useQuery({

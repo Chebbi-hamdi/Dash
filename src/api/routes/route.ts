@@ -18,7 +18,7 @@ export const create = async (route: string, data: any) => {
 
 export const getAll = async (route: string,currentPage:number, itemsPerPage:number) => {
   try {
-    const response = await customAxios.get(`${baseUrl(route)}/${currentPage}/${itemsPerPage}`);
+    const response = await customAxios.get(`${baseUrl(route)}/get/${currentPage}/${itemsPerPage}`);
     return response.data;
   } catch (error) {
     console.error('Error getting resources:', error);
@@ -79,7 +79,7 @@ export const update = async (route: string, id: string, data: any) => {
 
 export const del = async (route: string, id: string) => {
   try {
-    const response = await customAxios.delete(`${baseUrl(route)}/${id}`);
+    const response = await customAxios.delete(`${baseUrl(route)}/del/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting resource:', error);

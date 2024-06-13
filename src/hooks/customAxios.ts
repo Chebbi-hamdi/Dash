@@ -1,9 +1,9 @@
 import axios from "axios";
-import { decodeJWT } from "../api/jwt.utils";
 
 
 const customAxios = axios.create({
-baseURL: "http://localhost:3000",
+// baseURL: "http://localhost:3000",
+baseURL: "http://192.168.11.113:3000",
 });
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LogoDark from '../../images/logo/logo-dark.svg';
-import Logo from '../../images/logo/logo.svg';
+import LogoDark from '../../images/xsustain N.png';
+import Logo from '../../images/xsustain B.png';
 import { login } from '../../api/login';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';

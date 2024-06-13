@@ -10,7 +10,7 @@ const TableUser = () => {
   const [totalItems, setTotalItems] = useState(0);
 
   const { data: userData } = useGetById('users', selectedUserId, 'users');
-  const { data, isLoading } = useGetAll(
+  const { data: userDataCount, isLoading } = useGetAll(
     'users',
     currentPage,
     itemsPerPage,
@@ -19,20 +19,17 @@ const TableUser = () => {
   const deleteAdmin = useDelete('users', 'users');
   //   const newData = adminData?.superAdmin || adminData?.admin;
   // console.log('+++++++++++',userData?.users[0].name)
-  console.log('data', data);
-  console.log('itemsPerPage', itemsPerPage);
-  console.log('currentPage', currentPage);
-  console.log('totalItems', totalItems);
+ 
 
   useEffect(() => {
-    if (data) {
-      console.log('hhhhh', data.total);
+    if (userDataCount) {
+      console.log('hhhhh', userDataCount.total);
     } else {
       console.log('Data is not yet loaded');
     }
-    setTotalItems(data?.total);
-  }, [data]);
-  const newData = data?.users;
+    setTotalItems(userDataCount?.total);
+  }, [userDataCount]);
+  const newData = userDataCount?.users;
   console.log('newData++++++++++++++++++++++++++++++++++++++++++++', newData);
 
   const handleDelete = (id: string) => {

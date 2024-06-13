@@ -33,7 +33,7 @@ const SubSubCategorys = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Sub Sub Categorys" />
+      <Breadcrumb pageName="Sub Sub Task type" />
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark flex flex-col w-1/2 mx-auto">
         <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
           <h3 className="font-medium text-black dark:text-white">

@@ -17,7 +17,7 @@ export const assignTask = async (route: string, data: any) => {
       console.log('data assigned',data);
 const taskId = data.taskId;
 const userId = data.userId;
-        const response = await customAxios.put(`${baseUrl(route)}/AddTeammate/${taskId}/${userId}`);
+        const response = await customAxios.put(`${baseUrl(route)}/AsignAgent/${taskId}/${userId}`);
         return response.data;
     } catch (error) {
         console.error('Error creating resource:', error);
@@ -28,7 +28,7 @@ const userId = data.userId;
 export const getAll = async (route: string,currentPage:number, itemsPerPage:number) => {
     try {
         console.log('itemsPerPage',itemsPerPage);
-        const response = await customAxios.get(`${baseUrl(route)}/${currentPage}/${itemsPerPage}`);
+        const response = await customAxios.get(`${baseUrl(route)}/get/${currentPage}/${itemsPerPage}`);
         console.log('response',response);
         return response.data;
     } catch (error) {
@@ -39,7 +39,7 @@ export const getAll = async (route: string,currentPage:number, itemsPerPage:numb
 
 export const getById = async (route: string, id: string) => {
     try {
-        const response = await customAxios.get(`${baseUrl(route)}/${id}`);
+        const response = await customAxios.get(`${baseUrl(route)}/getTaskAdmin/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error getting resource by ID:', error);
@@ -49,7 +49,7 @@ export const getById = async (route: string, id: string) => {
 
 export const  deleteById = async (route: string, id: string) => {
     try {
-        const response = await customAxios.delete(`${baseUrl(route)}/${id}`);
+        const response = await customAxios.delete(`${baseUrl(route)}/del/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error deleting resource by ID:', error);

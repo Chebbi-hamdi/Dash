@@ -27,7 +27,7 @@ const TableTasks = () => {
     'users',
   );
 
-  console.log('----------------Data------------',userData);
+  console.log('----------------Data------------',taskData);
   useEffect(() => {
     if (data) {
       console.log(data.totalTasks);
@@ -130,7 +130,7 @@ console.log('----------------currentPage------------',currentPage);
                     Status
                   </th>
                   <th className="py-4 px-4 font-medium text-black dark:text-white">
-                    Bio
+                    Task Type
                   </th>
                   <th className="py-4 px-4 font-medium text-black dark:text-white">
                     Actions
@@ -278,14 +278,14 @@ console.log('----------------currentPage------------',currentPage);
           <CustomModal
             isOpen={isOpenInfoModal}
             onRequestClose={() => setIsOpenInfoModal(false)}
-            contentLabel="Admin Info Modal"
-            title="Admin Info"
+            contentLabel="Task Info Modal"
+            title="Task Info"
             fields={[
               {
                 name: 'taskname',
-                label: 'Name',
+                label: 'Task Name',
                 type: 'text',
-                placeholder: 'Enter your name',
+                placeholder: 'Task name',
                 readOnly: true, // Set readOnly for info display
               },
               {
@@ -299,30 +299,23 @@ console.log('----------------currentPage------------',currentPage);
                 name: 'status',
                 label: 'Status',
                 type: 'text',
-                placeholder: 'Enter your status',
+                placeholder: '',
                 readOnly: true, // Set readOnly for info display
               },
               {
                 name: 'bio',
-                label: 'Bio',
+                label: 'Task type',
                 type: 'text',
-                placeholder: 'Enter your bio',
+                placeholder: '',
                 readOnly: true, // Set readOnly for info display
               },
-              {
-                name: 'phone  ',
-                label: 'Mobile Phone',
-                type: 'text',
-                placeholder: 'Enter your mobile phone',
-                readOnly: true, // Set readOnly for info display
-              },
+         
             ]}
             initialValues={{
-              taskname: taskData?.name,
-              email: taskData?.email?.primary,
+              taskname: taskData?.title,
+              email: taskData?.owner?.email?.primary,
               status: taskData?.status,
-              phone: taskData?.phone?.primary,
-              bio: taskData?.bio,
+              bio: taskData?.type,
             }}
             onSubmit={() => {}} // No need to submit anything
           />

@@ -167,17 +167,7 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/chat"
-            element={
-              <>
-                <PageTitle title="Chat | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                {/* <ChatPages socket={socket}  userData={data}/> */}
-                
-                  <MinChat /> 
-              </>
-            }
-          />
+     
           <Route
             path="/calendar"
             element={
@@ -279,7 +269,7 @@ function App() {
             }
           />
           <Route
-            path="/auth/signup"
+            path="/signup"
             element={
               <>
                 <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />

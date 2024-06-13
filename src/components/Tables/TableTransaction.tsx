@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useGetAll, useGetTransaction } from '../../hooks/costumHooksTransaction';
+import {
+  useGetAll,
+  useGetTransaction,
+} from '../../hooks/costumHooksTransaction';
 import CustomModal from '../../pages/ModalTransaction';
 interface Transaction {
   _id: string;
@@ -16,22 +19,45 @@ const TableTransaction = () => {
   const [isFullIdVisible, setIsFullIdVisible] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [totalItems, setTotalItems] = useState(0);
 
-  const { data, isLoading } = useGetAll('transaction', 'transaction');
- const { data: dataTransaction } = useGetTransaction('transaction', selectedTransaction, 'transaction');
- console.log('transaction', dataTransaction);
+  const { data: transactionData, isLoading } = useGetAll(
+    'transaction',
+    currentPage,
+    itemsPerPage,
+    'transaction',
+  );
+  const { data: dataTransaction } = useGetTransaction(
+    'transaction',
+    selectedTransaction,
+    'transaction',
+  );
 
   useEffect(() => {
     console.log('selectedTransaction', selectedTransaction);
   }, [selectedTransaction]);
+
+
+  useEffect(() => {
+    if (transactionData) {
+      console.log('llllllllllll', transactionData.total);
+    } else {
+      console.log('no data');
+    }
+    setTotalItems(transactionData?.total);
+  }, [transactionData]);
+
+  const transData = transactionData?.transactions
+
 
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
   const handleToggleFullId = () => {
-      setIsFullIdVisible((prev) => !prev);
-     
+    setIsFullIdVisible((prev) => !prev);
   };
 
   const handleInfoTransaction = (id: string) => {
@@ -39,7 +65,12 @@ const TableTransaction = () => {
     setIsModalOpen(true);
     // console.log(selectedTransaction);
   };
-
+  const handlePrevious = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
+  const handleNext = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -72,60 +103,62 @@ const TableTransaction = () => {
             </tr>
           </thead>
           <tbody>
-            {(data || []).map((transaction: Transaction) => {
+            {(transData || []).map((transData: Transaction) => {
               return (
                 <tr
-                  key={transaction._id}
+                  key={transData._id}
                   className="text-black dark:text-white"
                 >
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5
                       className="font-medium text-black dark:text-white"
                       onClick={() => handleToggleFullId()}
-                      
                     >
                       {isFullIdVisible
-                        ? transaction._id
-                        : transaction._id.substring(0, 6) + '...'}
+                        ? transData.order
+                        : transData.order.substring(0, 6) + '...'}
                     </h5>
                     {/* <p className="text-sm">${transaction.amount}</p> */}
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {transaction.createdAt}
+                      {transData.createdAt}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p
                       className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                        transaction.status === 'SUCCESS'
+                        transData.status === 'SUCCESS'
                           ? 'bg-success text-success'
-                          : transaction.status === 'FAILED'
+                          : transData.status === 'FAILED'
                           ? 'bg-danger text-danger'
                           : 'bg-warning text-warning'
                       }`}
                     >
-                      {transaction.status}
+                      {transData.status}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      ${transaction.amount}
+                      ${transData.amount}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {transaction.name}
+                      {transData.name}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {transaction.email}
+                      {transData.email}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <button className="hover:text-primary" onClick={( )=> handleInfoTransaction(transaction._id)}>
+                      <button
+                        className="hover:text-primary"
+                        onClick={() => handleInfoTransaction(transaction._id)}
+                      >
                         <svg
                           className="fill-current"
                           width="18"
@@ -145,7 +178,7 @@ const TableTransaction = () => {
                         </svg>
                       </button>
 
-                      <button className="hover:text-primary" >
+                      <button className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -175,16 +208,33 @@ const TableTransaction = () => {
       <div className="flex items-center justify-between mt-6">
         <div className="flex items-center space-x-3">
           <p className="text-sm text-black dark:text-white">
-            Showing 1 to 10 of 20 entries
+            Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
+            {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{' '}
+            entries
           </p>
         </div>
         <div className="flex items-center space-x-3">
-          <button className="text-primary hover:underline">Previous</button>
-          <button className="text-primary hover:underline">Next</button>
+          <button
+            className="text-primary hover:underline"
+            onClick={handlePrevious}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <button
+            className="text-primary hover:underline"
+            onClick={handleNext}
+            disabled={currentPage * itemsPerPage >= totalItems}
+          >
+            Next
+          </button>
         </div>
       </div>
-      <CustomModal data={dataTransaction} isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
-
+      <CustomModal
+        data={dataTransaction}
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };

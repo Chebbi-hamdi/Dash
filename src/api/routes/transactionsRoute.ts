@@ -2,15 +2,15 @@ import customAxios from "../../hooks/customAxios";
 
 const baseUrl = (route: string) => `/api/v0/${route}`;
 
-export const getAll = async (route: string) => {
+export const getAll = async (route: string,currentPage:number, itemsPerPage:number) => {
     try {
-        const response = await customAxios.get(`${baseUrl(route)}`);
-        return response.data;
+      const response = await customAxios.get(`${baseUrl(route)}/all/${currentPage}/${itemsPerPage}`);
+      return response.data;
     } catch (error) {
-        console.error('Error getting resources:', error);
-        throw error;
+      console.error('Error getting resources:', error);
+      throw error;
     }
-}
+  };
 
 export const getTransaction = async (route: string, id: string) => {
     try {

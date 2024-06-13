@@ -4,7 +4,6 @@ import {
   useGetAll,
   useGetDiscussion,
 } from '../../hooks/costumeHooksDiscussion';
-import ModalChat from '../../pages/ModalChat';
 
 interface Message {
   content: string;
